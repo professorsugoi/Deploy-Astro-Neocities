@@ -1,9 +1,14 @@
 name: Deploy to Neocities
 
+# only run on changes to master
 on:
   push:
     branches:
-      - main # change to your branch name
+      - master # change to your branch name if different
+
+concurrency: # prevent concurrent deploys doing strange things
+  group: deploy-to-neocities
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -26,6 +31,7 @@ jobs:
           npm install
           npm run build
 
+      # When the dist folder is ready, deploy it to neocities
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v1
         with:
@@ -33,14 +39,13 @@ jobs:
           cleanup: true # change to false to prevent orphan files from being removed on neocities
           dist_dir: dist
 
-      - name: Push changes to GitHub # pushes commit to neocities *and* github
-        run: |
-          git config user.email "emosock@live.com"
-          git config user.name "professorsugoi"
-          git add .
-          git commit --allow-empty -m "actions: deploy + commit"
-          git push
+      #- name: Push changes to GitHub
+      #  run: |
+      #    git config user.email "YOUR_EMAIL_HERE"
+      #    git config user.name "YOUR_USERNAME_HERE"
+      #    git add .
+      #    git commit --allow-empty -m "actions: deploy + commit"
+      #    git push
 
-      # Make sure github's `actions` bot has permissions to write to your repo
-      # On your repo page go to Settings > Actions > General
-      # Scroll down to the "Workflow permissions" and tick the box "Read and Write Permissions"
+      ## uncomment if you want to push commits to neocities *and* github
+      ## see `Github Actions` in the README for more information
