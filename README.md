@@ -43,7 +43,7 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro --help` | Get help using the Astro CLI                     |
 
-## 👀 Official Astro Resources
+## 👀 Resources
 
-[Astro Docs](https://docs.astro.build)  
-[Discord Server](https://astro.build/chat)
+- [Astro Docs](https://docs.astro.build) / [Discord](https://astro.build/chat)
+- [Deploy-To-Neocities Docs](https://github.com/bcomnes/deploy-to-neocities)
