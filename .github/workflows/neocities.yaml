@@ -3,14 +3,7 @@ name: Deploy to Neocities
 on:
   push:
     branches:
-      - main
-      # Run the workflow only if the commit message includes the word "deploy"
-    paths-ignore:
-      - '!.github/workflows/**'
-      - 'README.md'
-      - 'LICENSE'
-    if: >
-      github.event.head_commit.message =~ /\[deploy\]/
+      - main # change to your branch name
 
 jobs:
   deploy:
@@ -21,19 +14,29 @@ jobs:
       - run: echo "🔎 Branch :/ ${{ github.ref }}"
       - run: echo "🔎 Repository:/ ${{ github.repository }}."
       - name: Checkout the repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - run: echo "🍏 Job status :/ ${{ job.status }}."
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
+
       - name: Install dependencies and build site
         run: |
           npm install
           npm run build
+
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v1
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
           cleanup: true # change to false to prevent orphan files from being removed on neocities
           dist_dir: dist
+
+      - name: Push changes to GitHub # pushes commit to neocities *and* github
+        run: |
+          git config --global user.email "emosock@live.com"
+          git config --global user.name "professorsugoi"
+          git add .
+          git commit -m "actions: deploy + commit"
+          git push
