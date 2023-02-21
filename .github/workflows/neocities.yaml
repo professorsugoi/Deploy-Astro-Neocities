@@ -3,7 +3,7 @@ name: Deploy to Neocities
 on:
   push:
     branches:
-      - master
+      - main
       # Run the workflow only if the commit message includes the word "deploy"
     paths-ignore:
       - '!.github/workflows/**'
