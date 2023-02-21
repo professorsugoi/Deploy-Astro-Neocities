@@ -10,6 +10,8 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"astro": "^2.0.14"
+		"@astrojs/webapi": "^2.0.0",
+		"astro": "^2.0.13",
+		"undici": "^5.20.0"
 	}
 }

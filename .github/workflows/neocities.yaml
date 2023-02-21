@@ -1,0 +1,34 @@
+name: Deploy to Neocities
+
+on:
+  push:
+    branches:
+      - master
+      # Run the workflow only if the commit message includes the word "deploy"
+    paths-ignore:
+      - '!.github/workflows/**'
+      - 'README.md'
+      - 'LICENSE'
+    if: >
+      github.event.head_commit.message =~ /\[deploy\]/
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install dependencies and build site
+        run: |
+          npm install
+          npm run build
+      - name: Deploy to Neocities
+        uses: bcomnes/deploy-to-neocities@v1
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: false
+          dist_dir: dist
