@@ -35,8 +35,8 @@ jobs:
 
       - name: Push changes to GitHub # pushes commit to neocities *and* github
         run: |
-          git config --global user.email "emosock@live.com"
-          git config --global user.name "professorsugoi"
+          git config user.email "emosock@live.com"
+          git config user.name "professorsugoi"
           git add .
           git commit --allow-empty -m "actions: deploy + commit"
           git push
