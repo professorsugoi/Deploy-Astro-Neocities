@@ -147,4 +147,4 @@ All commands are run from the root of the project, from a terminal:
 I made this repo to learn more about Astro and Github Actions, and also for my own convenience.  
 While I'm still a novice at coding, maybe others can find it useful too.
 
-If you do, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) Project! ⭐
+If you do, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) page! ⭐
