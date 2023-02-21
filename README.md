@@ -45,5 +45,6 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Resources
 
-- [Astro Docs](https://docs.astro.build) / [Discord](https://astro.build/chat)
+- [Host your own site on Neocities!](https://neocities.org/)
 - [Deploy-To-Neocities Docs](https://github.com/bcomnes/deploy-to-neocities)
+- [Astro Docs](https://docs.astro.build) / [Discord](https://astro.build/chat)

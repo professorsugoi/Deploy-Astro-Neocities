@@ -40,3 +40,7 @@ jobs:
           git add .
           git commit -m "actions: deploy + commit"
           git push
+
+      # new commit should always push to your github repo.
+      # if changes are only made to ignored filetypes (ie. yaml, readme),
+      # the acton will stop before deploying to neocities and result in an error.
