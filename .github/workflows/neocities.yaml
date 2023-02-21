@@ -14,17 +14,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 Job automatically triggered by ${{ github.event_name }} event."
-      - run: echo "🐧 Running on ${{ runner.os }}!"
-      - run: echo "🔎 Branch :/ ${{ github.ref }}"
-      - run: echo "🔎 Repository:/ ${{ github.repository }}."
       - name: Checkout the repository code
         uses: actions/checkout@v3
-      - run: echo "🍏 Job status :/ ${{ job.status }}."
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: /lts*
 
       - name: Install dependencies and build site
         run: |
@@ -47,5 +42,5 @@ jobs:
       #    git commit --allow-empty -m "actions: deploy + commit"
       #    git push
 
-      ## uncomment if you want to push commits to neocities *and* github
-      ## see `Github Actions` in the README for more information
+      ## uncomment this block if you want to push commits to neocities *and* github
+      ## see the README for more information

@@ -1,24 +1,17 @@
-# Astro + Neocities
+# 🐱‍🚀 Astro + Neocities
 
-🎈 Because Astro is build around shipping _less_, I thought it would be neat to try out on Neocities.
+This repository comes with a sample template for Astro and [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) (courtesy of [bcomnes](https://github.com/bcomnes)) ♥
 
-Astro is a static site builder that renders your entire page to static HTML, removing all JavaScript from the final build by default. Interactive components are hydrated only when they become visible on the page.  
-You can build with modern frameworks or just plain ol’ HTML + JavaScript.
+## Quickstart
 
-## Set-Up
-
-Clone this repository and run the following commands.
+Clone this repo and install the dependencies.
 
 ```
-cd YOUR_FOLDER
+cd YOUR_PROJECT_FOLDER
 npm install
 ```
 
-In the `.github\workspace` folder, remove `.test` from the end of `neocities.yaml.test`.
-
-## Github Actions
-
-This deployment method relies on **Github Actions** (courtesy of [bcomnes](https://github.com/bcomnes/deploy-to-neocities)) ♥
+## Usage
 
 ```
 name: Deploy to Neocities
@@ -37,29 +30,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 Job automatically triggered by ${{ github.event_name }} event."
-      - run: echo "🐧 Running on ${{ runner.os }}!"
-      - run: echo "🔎 Branch :/ ${{ github.ref }}"
-      - run: echo "🔎 Repository:/ ${{ github.repository }}."
       - name: Checkout the repository code
         uses: actions/checkout@v3
-      - run: echo "🍏 Job status :/ ${{ job.status }}."
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: /lts*
 
       - name: Install dependencies and build site
         run: |
           npm install
           npm run build
 
-      # When the dist_dir is ready, deploy it to neocities
+      # When the dist folder is ready, deploy it to neocities
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v1
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: false # `true` will automatically remove orphan files from neocities
+          cleanup: true # change to false to prevent orphan files from being removed on neocities
           dist_dir: dist
 
       #- name: Push changes to GitHub
@@ -71,7 +59,7 @@ jobs:
       #    git push
 
       ## uncomment this block if you want to push commits to neocities *and* github
-      ## see "⚠" section of README for more info
+      ## see the README "optional" step for more information
 ```
 
 Generate your Neocities API token at:
@@ -80,23 +68,40 @@ Generate your Neocities API token at:
 https://neocities.org/settings/{{your-sitename}}#api_key
 ```
 
-Next, go to your Github Repository setting and enter your key as a new secret:  
-`Settings > Secrets and variables > Actions > New repository secret`
+Then go to your Github Repository Settings and enter your key as a new secret:
 
-> Name: NEOCITIES_AP_TOKEN  
-> Secret: `ENTER YOUR API KEY HERE`
+```
+Settings > Secrets and variables > Actions > New repository secret
+```
+
+- Name: NEOCITIES_AP_TOKEN
+- Secret: `ENTER YOUR API KEY HERE`
 
 ---
 
-⚠ This step is for pushing changes to code on neocities **AND** your github repo. Otherwise, your repo will not receive any commits. If that's fine with you, feel free to skip this step.
+(Optional) Enable permissions for Github Actions to write to your repo _in addition_ to deploying to Neocities.
 
-- Enable permissions for the Actions Bot to write to your repo.
-- On your repo page, go to `Settings > Actions > General`
+```
+Settings > Actions > General
+```
+
 - Scroll down to the `Workflow permissions` and tick the box `Read and Write Permissions`.
 
 ---
 
-## 🚀 Project Structure
+## Inputs
+
+`api_token`: (REQUIRED): The API token for your Neocities website to deploy to.
+
+`dist_dir`: The directory deployed to Neocities, and Astro's build directory. Do not change this unless you also change Astro's build path.  
+Default: `dist`
+
+`cleanup`: If true, `deploy-to-neocities` will delete files on Neocities not found in `dist` or `public`.  
+Default: `false`
+
+`protected_files`: An optional glob string used to mark files as protected. Protected files are never cleaned up. Test this option out with cleanup set to false before relying on it. Protected files can still be updated.
+
+## Project Structure
 
 ```
 /
@@ -118,7 +123,7 @@ Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page
 
 Any static assets, like images, can be placed in the `public/` directory. Learn more [here](https://docs.astro.build/en/core-concepts/project-structure/).
 
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -131,17 +136,15 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro --help` | Get help using the Astro CLI                     |
 
-## 👀 Resources
+## Resources
 
 - [Host your own site on Neocities!](https://neocities.org/)
 - [Deploy-To-Neocities Docs](https://github.com/bcomnes/deploy-to-neocities)
 - [Astro Docs](https://docs.astro.build) / [Discord](https://astro.build/chat)
 
-## ( `ε´ ) Enjoy!
+## ( `ε´ ) Note!
 
-I'm a novice at coding, but I wanted to post something helpful.  
-Hopefully you won't run into many issues
+I made this repo to learn more about Astro and Github Actions, and also for my own convenience.  
+While I'm still a novice at coding, maybe others can find it useful too.
 
-### TODO:
-
-..test deploy
+If you do, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) Project! ⭐
