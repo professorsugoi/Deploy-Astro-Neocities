@@ -1,5 +1,5 @@
 {
-	"name": "web2eb",
+	"name": "my neocities site",
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
@@ -10,8 +10,9 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/webapi": "^2.0.0",
-		"astro": "^2.0.13",
-		"undici": "^5.20.0"
+		"@astrojs/mdx": "^1.1.1",
+		"@astrojs/rss": "^3.0.0",
+		"@astrojs/sitemap": "^3.0.1",
+		"astro": "^3.2.3",
 	}
 }
