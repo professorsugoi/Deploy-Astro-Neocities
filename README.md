@@ -11,50 +11,56 @@ Import the `.github/workflows` folder from this repo into your astro project and
 ```neocities.yaml
 name: Deploy to Neocities
 
-# only run on changes to master
-on:
-  push:
-    branches:
-      - master # change to your branch name if different. (ie. main)
-
 concurrency: # prevent concurrent deploys doing strange things
   group: deploy-to-neocities
   cancel-in-progress: true
 
+on:
+  push: # will only run on 'git push' to main branch
+    branches:
+      - main
+      # make sure your branch name matches! (ie. main, master, etc)
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout the repository code
         uses: actions/checkout@v3
+        
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # if the build is throwing node errors, change this to the latest version that is compatible with Astro/your SSG
+          node-version: '18'
+        # if the build is throwing node errors, change this to the latest
+        # version that is compatible with Astro/your SSG
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+         # caches dependencies and other commonly re-used files
+         # so they do not need to be re-installed on each run
 
       - name: Install dependencies and build site
         run: |
           npm install
           npm run build
 
-      # When the dist folder is ready, deploy it to neocities
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v1
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
           cleanup: true
-          dist_dir: dist
-
-      #- name: Push changes to GitHub
-      #  run: |
-      #    git config user.email "YOUR_EMAIL_HERE"
-      #    git config user.name "YOUR_USERNAME_HERE"
-      #    git add .
-      #    git commit --allow-empty -m "actions: deploy + commit"
-      #    git push
-
-      ## uncomment this block if you want to push commits to neocities *and* your github repo
-      ## see the README "optional" step for more information
+          dist_dir: dist # if this is within a subfolder, update the filepath to reflect that
 ```
 
 Generate your Neocities API token at:
@@ -71,18 +77,6 @@ Settings > Secrets and variables > Actions > New repository secret
 
 - Name: NEOCITIES_AP_TOKEN
 - Secret: `ENTER YOUR API KEY HERE`
-
-
-## Optional
-
-Enable permissions for Github Actions to write to your repo _in addition_ to deploying to Neocities.
-
-```
-Settings > Actions > General
-```
-
-- Scroll down to the `Workflow permissions` and tick the box `Read and Write Permissions`.
-
 
 ## Inputs
 
