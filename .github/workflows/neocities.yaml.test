@@ -19,7 +19,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: /lts*
+          node-version: '18' # update this if you're getting version errors
 
       - name: Install dependencies and build site
         run: |
