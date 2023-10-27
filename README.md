@@ -30,7 +30,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: /lts* # if the build is throwing node errors, change this to the latest version that is compatible with Astro/your SSG
+          node-version: '18' # if the build is throwing node errors, change this to the latest version that is compatible with Astro/your SSG
 
       - name: Install dependencies and build site
         run: |
