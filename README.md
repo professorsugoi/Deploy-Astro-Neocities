@@ -1,11 +1,10 @@
 # 🐱‍🚀 Astro + Neocities
-*This is a Fork of [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) (courtesy of [bcomnes](https://github.com/bcomnes)) ♥ If you are not using an SSG, their method may be what you're looking for.*
+*This is a Fork of [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) adapted for use with Astro and other static site generators.*
 
 ## Quickstart
 
-Import the `.github/workflows` folder from this repo into your astro project and edit the `neocities.yaml` file.
-> Feel free to use another static site generator of your choosing is Astro isn't your speed.  
-> (*NOTE: Your build path may be named differently in other SSGs*).
+Import the `.github/workflows` folder from this repo into your astro project and rename `neocities.yaml.test` to `neocities.yaml`.
+> 💡 *This workflow can be used with any SSG, just note that the build path may be different from Astro's.*
 
 ## Usage
 
@@ -16,7 +15,7 @@ name: Deploy to Neocities
 on:
   push:
     branches:
-      - master # change to your branch name if different
+      - master # change to your branch name if different. (ie. main)
 
 concurrency: # prevent concurrent deploys doing strange things
   group: deploy-to-neocities
@@ -31,7 +30,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: /lts*
+          node-version: /lts* # if the build is throwing node errors, change this to the latest version that is compatible with Astro/your SSG
 
       - name: Install dependencies and build site
         run: |
@@ -43,7 +42,7 @@ jobs:
         uses: bcomnes/deploy-to-neocities@v1
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: true # change to false to prevent orphan files from being removed on neocities
+          cleanup: true
           dist_dir: dist
 
       #- name: Push changes to GitHub
@@ -54,7 +53,7 @@ jobs:
       #    git commit --allow-empty -m "actions: deploy + commit"
       #    git push
 
-      ## uncomment this block if you want to push commits to neocities *and* github
+      ## uncomment this block if you want to push commits to neocities *and* your github repo
       ## see the README "optional" step for more information
 ```
 
@@ -92,10 +91,10 @@ Settings > Actions > General
 `dist_dir`: The directory deployed to Neocities, and Astro's build directory. Do not change this unless you also change Astro's build path.  
 Default: `dist`
 
-`cleanup`: If true, `deploy-to-neocities` will delete files on Neocities not found in `dist` or `public`.  
+`cleanup`: If true, `deploy-to-neocities` will delete orphan files on Neocities not found in `dist` or `public`.  
 Default: `false`
 
-`protected_files`: An optional glob string used to mark files as protected. Protected files are never cleaned up. Test this option out with cleanup set to false before relying on it. Protected files can still be updated.
+`protected_files`: (OPTIONAL) Used to mark files as protected. Protected files are never cleaned up. **Test this option out with cleanup set to false before relying on it.** Protected files can still be updated.
 
 ## Resources
 
@@ -106,6 +105,6 @@ Default: `false`
 ## ( `ε´ ) Note!
 
 I made this repo to learn more about Astro and Github Actions, and also for my own convenience.  
-While I'm still a novice at coding, maybe others can find it useful too.
+I'm still a novice at coding, so I'll try to make this better if I can. Outside contributions are also welcome!
 
-If you like it, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) page! ⭐
+If you find this useful, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) repo ⭐~
