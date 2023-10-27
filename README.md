@@ -4,7 +4,8 @@
 ## Quickstart
 
 Import the `.github/workflows` folder from this repo into your astro project and edit the `neocities.yaml` file.
-> Feel free to use another static site generator of your choosing is Astro isn't your speed. (*NOTE: Your build path may be named differently in other SSGs*).
+> Feel free to use another static site generator of your choosing is Astro isn't your speed.
+> (*NOTE: Your build path may be named differently in other SSGs*).
 
 ## Usage
 
