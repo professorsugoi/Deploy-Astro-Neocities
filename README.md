@@ -1,6 +1,5 @@
 # 🐱‍🚀 Astro + Neocities
-
-This repository comes with a sample template for Astro and [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) (courtesy of [bcomnes](https://github.com/bcomnes)) ♥
+*This is a Fork of [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) (courtesy of [bcomnes](https://github.com/bcomnes)) ♥ If you are not using an SSG, their method may be what you're looking for.*
 
 ## Quickstart
 
@@ -10,6 +9,10 @@ Clone this repo and install the dependencies.
 cd YOUR_PROJECT_FOLDER
 npm install
 ```
+
+**or**
+
+import the `.github/workflows` folder into a static site generator of your choosing (or just plain ol' html!).
 
 ## Usage
 
