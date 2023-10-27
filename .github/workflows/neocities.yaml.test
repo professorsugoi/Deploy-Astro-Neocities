@@ -4,7 +4,7 @@ name: Deploy to Neocities
 on:
   push:
     branches:
-      - master # change to your branch name if different
+      - master # change to your branch name if different. (ie. main)
 
 concurrency: # prevent concurrent deploys doing strange things
   group: deploy-to-neocities
@@ -19,7 +19,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # update this if you're getting version errors
+          node-version: '18' # if the build is throwing node errors, change this to the latest version that is compatible with Astro/your SSG
 
       - name: Install dependencies and build site
         run: |
@@ -31,7 +31,7 @@ jobs:
         uses: bcomnes/deploy-to-neocities@v1
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: true # change to false to prevent orphan files from being removed on neocities
+          cleanup: true
           dist_dir: dist
 
       #- name: Push changes to GitHub
@@ -42,5 +42,5 @@ jobs:
       #    git commit --allow-empty -m "actions: deploy + commit"
       #    git push
 
-      ## uncomment this block if you want to push commits to neocities *and* github
-      ## see the README for more information
+      ## uncomment this block if you want to push commits to neocities *and* your github repo
+      ## see the README "optional" step for more information
