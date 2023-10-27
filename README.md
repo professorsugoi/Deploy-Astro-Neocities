@@ -3,7 +3,7 @@
 
 ## Quickstart
 
-Import the `.github/workflows` folder from this repo into your astro project and rename `neocities.yaml.test` to `neocities.yaml`.
+Import the `.github/workflows` folder from this repo into your astro project configure `neocities.yaml`.
 > 💡 *This workflow can be used with any SSG, just note that the build path may be different from Astro's.*
 
 ## Usage
