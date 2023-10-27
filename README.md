@@ -3,20 +3,12 @@
 
 ## Quickstart
 
-Clone this repo and install the dependencies.
-
-```
-cd YOUR_PROJECT_FOLDER
-npm install
-```
-
-**or**
-
-import the `.github/workflows` folder into a static site generator of your choosing (or just plain ol' html!).
+Import the `.github/workflows` folder from this repo into your astro project and edit the `neocities.yaml` file.
+> Feel free to use another static site generator of your choosing is Astro isn't your speed. (*NOTE: Your build path may be named differently in other SSGs*).
 
 ## Usage
 
-```
+```neocities.yaml
 name: Deploy to Neocities
 
 # only run on changes to master
@@ -80,9 +72,10 @@ Settings > Secrets and variables > Actions > New repository secret
 - Name: NEOCITIES_AP_TOKEN
 - Secret: `ENTER YOUR API KEY HERE`
 
----
 
-(Optional) Enable permissions for Github Actions to write to your repo _in addition_ to deploying to Neocities.
+## Optional
+
+Enable permissions for Github Actions to write to your repo _in addition_ to deploying to Neocities.
 
 ```
 Settings > Actions > General
@@ -90,7 +83,6 @@ Settings > Actions > General
 
 - Scroll down to the `Workflow permissions` and tick the box `Read and Write Permissions`.
 
----
 
 ## Inputs
 
@@ -104,41 +96,6 @@ Default: `false`
 
 `protected_files`: An optional glob string used to mark files as protected. Protected files are never cleaned up. Test this option out with cleanup set to false before relying on it. Protected files can still be updated.
 
-## Project Structure
-
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-`src/components/` is for Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory. Learn more [here](https://docs.astro.build/en/core-concepts/project-structure/).
-
-## Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
-
 ## Resources
 
 - [Host your own site on Neocities!](https://neocities.org/)
@@ -150,4 +107,4 @@ All commands are run from the root of the project, from a terminal:
 I made this repo to learn more about Astro and Github Actions, and also for my own convenience.  
 While I'm still a novice at coding, maybe others can find it useful too.
 
-If you do, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) page! ⭐
+If you like it, please go star the original [Deploy-To-Neocities](https://github.com/bcomnes/deploy-to-neocities) page! ⭐
