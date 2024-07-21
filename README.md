@@ -75,7 +75,7 @@ Then go to your Github Repository Settings and enter your key as a new secret:
 Settings > Secrets and variables > Actions > New repository secret
 ```
 
-- Name: NEOCITIES_AP_TOKEN
+- Name: NEOCITIES_API_TOKEN
 - Secret: `ENTER YOUR API KEY HERE`
 
 ## Inputs
