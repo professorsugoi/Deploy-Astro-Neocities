@@ -11,12 +11,16 @@ Import the `.github/workflows` folder from this repo into your astro project and
 ```neocities.yaml
 name: Deploy to Neocities
 
-concurrency: # prevent concurrent deploys doing strange things
+env:
+  FORCE_COLOR: 1
+  NODE_VERSION: lts/*
+
+concurrency:
   group: deploy-to-neocities
   cancel-in-progress: true
 
 on:
-  push: # will only run on 'git push' to main branch
+  push:
     branches:
       - main
       # make sure your branch name matches! (ie. main, master, etc)
@@ -27,40 +31,42 @@ jobs:
     
     steps:
       - name: Checkout the repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-        # if the build is throwing node errors, change this to the latest
-        # version that is compatible with Astro/your SSG
-
+          node-version: ${{ env.NODE_VERSION }}
+        # this will use the latest LTS version of Node.js
+        # if you need a specific version, replace ${{ env.NODE_VERSION }} with that version number
+        
       - name: Get npm cache directory
         id: npm-cache-dir
         run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
+        
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
         id: npm-cache
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-         # caches dependencies and other commonly re-used files
-         # so they do not need to be re-installed on each run
-
+        # caches dependencies and other commonly re-used files
+        # so they do not need to be re-installed on each run
+        
       - name: Install dependencies and build site
         run: |
-          npm install
+          npm ci
           npm run build
-
+        
       - name: Deploy to Neocities
-        uses: bcomnes/deploy-to-neocities@v1
+        uses: bcomnes/deploy-to-neocities@master
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
           cleanup: true
-          dist_dir: dist # if this is within a subfolder, update the filepath to reflect that
+          dist_dir: dist
+        # if dist_dir is within a subfolder, update the filepath to reflect that
 ```
 
 Generate your Neocities API token at:
@@ -87,8 +93,6 @@ Default: `dist`
 
 `cleanup`: If true, `deploy-to-neocities` will delete orphan files on Neocities not found in `dist` or `public`.  
 Default: `false`
-
-`protected_files`: (OPTIONAL) Used to mark files as protected. Protected files are never cleaned up. **Test this option out with cleanup set to false before relying on it.** Protected files can still be updated.
 
 ## Resources
 
