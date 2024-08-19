@@ -64,7 +64,7 @@ jobs:
         uses: bcomnes/deploy-to-neocities@master
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: true
+          cleanup: false
           dist_dir: dist
         # if dist_dir is within a subfolder, update the filepath to reflect that
 ```
